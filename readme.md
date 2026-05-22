@@ -32,6 +32,8 @@ Create `my_notifier.yaml` in the directory you run the command from.
 
 ### Email via SMTP
 
+[!WARNING] only tested for postmark server configs
+
 ```yaml
 email:
   to: "you@example.com"
