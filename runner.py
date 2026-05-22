@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 from config import load_config
@@ -5,9 +6,11 @@ from matcher import Matcher
 
 
 class Runner:
-    def __init__(self, cmd: list[str]):
+    def __init__(self, cmd: list[str], cwd: str | None = None):
         self.cmd = cmd
-        self.matcher = Matcher(load_config())
+        self.cwd = cwd or os.getcwd()
+        config_path = os.path.join(self.cwd, "my_notifier.yaml")
+        self.matcher = Matcher(load_config(config_path))
 
     def on_line(self, line: str):
         self.matcher.match_line(line)

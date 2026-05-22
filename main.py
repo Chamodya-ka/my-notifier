@@ -12,14 +12,15 @@ if __name__ == "__main__":
     print("Starting with my notifier")
     args = sys.argv[1:]
     print("Raw passed in arguments: ", args)
+    caller_cwd = os.getcwd()
     if len(args) >= 2 and args[0] == "--caller-cwd":
-        os.chdir(args[1])
+        caller_cwd = args[1]
         args = args[2:]
     if len(args) == 1 and (args[0] == "--help" or args[0] == "-h"):
         print(HELP_TEXT)
     else:
         print("Passed in arguments: ", args)
-        runner = Runner(args)
+        runner = Runner(args, caller_cwd)
         try:
             runner.run()
         except KeyboardInterrupt:
