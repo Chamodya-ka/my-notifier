@@ -1,3 +1,4 @@
+import os
 import sys
 
 from runner import Runner
@@ -10,10 +11,17 @@ Example: my_notifier python my_long_running_process.py --arg1=value1 --arg2=valu
 if __name__ == "__main__":
     print("Starting with my notifier")
     args = sys.argv[1:]
+    print("Raw passed in arguments: ", args)
+    if len(args) >= 2 and args[0] == "--caller-cwd":
+        os.chdir(args[1])
+        args = args[2:]
     if len(args) == 1 and (args[0] == "--help" or args[0] == "-h"):
         print(HELP_TEXT)
     else:
         print("Passed in arguments: ", args)
         runner = Runner(args)
-        runner.run()
+        try:
+            runner.run()
+        except KeyboardInterrupt:
+            pass
         print("Process finished")

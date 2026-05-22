@@ -2,7 +2,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ALIAS_DEF="alias my_notifier=\"python '$SCRIPT_DIR/main.py'\""
+ALIAS_DEF="alias my_notifier=\"python '$SCRIPT_DIR/main.py' --caller-cwd \\\"\$PWD\\\"\""
 
 add_alias() {
     local rc_file="$1"
